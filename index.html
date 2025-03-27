@@ -1,79 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Responsive Rive Animation</title>
-<style>
-body, html {
-
-    margin: 0;
-    font-family: Arial, sans-serif;
-    overflow-x: hidden; /* Prevent horizontal scrolling */
-    overflow-y: auto;   /* Allow vertical scrolling */
-
-
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-canvas {
-    width: 1000px; /* Set canvas width manually */
-    margin: 0 auto; /* Center the canvas horizontally */
-    display: block; /* Ensure proper centering */
-}
-</style>
-<script src="https://unpkg.com/@rive-app/canvas@latest"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Rive Demo</title>
+  <style>
+    body {
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: #000;
+    }
+    canvas {
+      width: 540px;
+      height: 960px;
+      background: #111;
+    }
+  </style>
+  <script src="https://unpkg.com/@rive-app/canvas@latest"></script>
 </head>
 <body>
-<canvas id="riveCanvas"></canvas>
-<div id="widthDisplay"></div>
-<script>
-    let riveInstance, widthNumInput;
-
-    function updateCanvasHeight() {
-        const browserWidth = window.innerWidth;
-        const canvas = document.getElementById('riveCanvas');
-        const widthDisplay = document.getElementById('widthDisplay');
-
-        widthDisplay.innerText = browserWidth + ' px';
-
-        // Update Rive input if available
-        if (widthNumInput) {
-            widthNumInput.value = browserWidth;
-        }
-
-        // Update canvas height based on breakpoint
-        if (browserWidth >= 960) {
-            canvas.style.height = '960px'; // wide height
-        } else {
-            canvas.style.height = '960px'; // skinny height
-        }
-
-        // Ensure Rive redraws on canvas resize
-        if (riveInstance) {
-            riveInstance.resizeDrawingSurfaceToCanvas();
-        }
-    }
-
-    // Initialize Rive
-    riveInstance = new rive.Rive({
-        src: 'blackhole_test.riv', // Ensure this file name is correct
-        canvas: document.getElementById('riveCanvas'),
-        autoplay: true,
-        artboard: 'Main_blackhole', // Ensure this artboard name is correct
-        stateMachines: 'State Machine 1', // Ensure this state machine name is correct
-        onLoad: () => {
-            const inputs = riveInstance.stateMachineInputs('State Machine 1'); // Ensure this state machine name is correct
-            widthNumInput = inputs.find(i => i.name === 'Stars_amount'); // Ensure this input name is correct
-            riveInstance.resizeDrawingSurfaceToCanvas();
-
-            // Update canvas height on load and resize
-            updateCanvasHeight();
-            window.onresize = updateCanvasHeight;
-        }
+  <canvas id="rive-canvas" width="540" height="960"></canvas>
+  <script>
+    const riveInstance = new rive.Rive({
+      src: 'blackhole_test.riv',
+      canvas: document.getElementById('rive-canvas'),
+      autoplay: true,
+      artboard: 'Main_blackhole',
+      stateMachines: 'State Machine 1',
+      onLoad: () => {
+        const inputs = riveInstance.stateMachineInputs('State Machine 1');
+        console.log('Rive loaded. Inputs:', inputs);
+      }
     });
-</script>
+  </script>
 </body>
 </html>
-
