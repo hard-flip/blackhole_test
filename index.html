@@ -43,7 +43,7 @@
                             return;
                         }
     
-                        const starSelectInput = inputs.find(input => input.name === "Button_001_T");
+                        const starSelectInput = inputs.find(input => input.name === "B_Star_select_1_10");
     
                         // 불리언 값이 true가 되었는지 감지하는 함수
                         let opened = false; // 창이 한 번만 열리도록 하는 플래그 변수
@@ -53,7 +53,7 @@
                                 window.open("https://dic.daum.net/index.do", windowName, "noopener,noreferrer");
                                 
                                 opened = true; // 창이 열린 상태로 설정
-                                // 일정 시간 후 "Button_001_T" 값을 false로 변경
+                                // 일정 시간 후 "B_Star_select_1_10" 값을 false로 변경
                                 setTimeout(() => {
                                     starSelectInput.value = false;
                                     opened = false; // 다시 창을 열 수 있도록 초기화
